@@ -28,7 +28,7 @@ class EmotionTable extends React.Component {
 
                  
                     let displayedInfo= emotionDetails.map((em)=>{
-                      return <tr><td style={{color: "black",border: "1px solid black"}}>{em[0]}</td><td style={{color: "red",border: "1px solid black"}}>{em[1]} </td></tr>;
+                      return <tr><td style={{color: "black",border: "1px solid black"}}>{em[0]}</td><td style={{color: "black",border: "1px solid black"}}>{em[1]} </td></tr>;
                     }); 
                    return displayedInfo;
                 })
