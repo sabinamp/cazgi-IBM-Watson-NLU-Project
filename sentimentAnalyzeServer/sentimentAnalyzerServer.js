@@ -101,27 +101,23 @@ app.get("/",(req,res)=>{
 app.get("/url/emotion", (req,res) => {
     let target=req.query.url;
     analyzeURL(false, true, target, res);
-
-    //return res.send({"happy":"90","sad":"10"});
- 
+    
 });
 
 app.get("/url/sentiment", (req,res) => {
     let target=req.query.url;
     analyzeURL(true, false, target, res);
-    //return res.send("url sentiment for "+req.query.url);
+    
 });
 
 app.get("/text/emotion", (req,res) => {
     let txt=req.query.text;
-    analyzeText(false, true, txt,res);
-    //return res.send({"happy":"10","sad":"90"});
+    analyzeText(false, true, txt,res);    
 });
 
 app.get("/text/sentiment", (req,res) => {
     let txt=req.query.text;
-    analyzeText(true, false, txt,res);
-    //return res.send("text sentiment for "+req.query.text);
+    analyzeText(true, false, txt,res);    
 });
 
 let server = app.listen(8080, () => {

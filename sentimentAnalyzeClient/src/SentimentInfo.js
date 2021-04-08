@@ -24,11 +24,20 @@ class SentimentInfo extends React.Component {
                   
                   let labelS= sentimentResult.label;
                     if(labelS === "positive") {
-                      output = <div style={{color:"green",fontSize:20}}>{sentimentResult.label}</div>
+                      output = <div>
+                        <span style={{color:"black",fontSize:20}}> {item.text} - </span >
+                        <span style={{color:"green",fontSize:20}}>{sentimentResult.label}</span>
+                        </div>
                     } else if (labelS === "negative"){
-                      output = <div style={{color:"red",fontSize:20}}>{sentimentResult.label}</div>
+                      output = <div>
+                         <span style={{color:"black",fontSize:20}}> {item.text} - </span >
+                         <span style={{color:"red",fontSize:20}}>{sentimentResult.label}</span>
+                        </div>
                     } else {
-                      output = <div style={{color:"yellow",fontSize:20}}>{sentimentResult.label}</div>
+                      output = <div>
+                        <span style={{color:"black",fontSize:20}}> {item.text} - </span >
+                        <span style={{color:"yellow",fontSize:20}}>{sentimentResult.label}</span>
+                        </div>
                     }
                    return output;
                 })
