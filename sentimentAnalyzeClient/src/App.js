@@ -1,5 +1,6 @@
 import './bootstrap.min.css';
 import './App.css';
+import SentimentInfo from './SentimentInfo.js';
 import EmotionTable from './EmotionTable.js';
 import React from 'react';
 import axios from 'axios';
@@ -45,20 +46,23 @@ class App extends React.Component {
     }
     ret = axios.get(url);
     ret.then((response)=>{
-
       //Include code here to check the sentiment and fomrat the data accordingly
-
-      this.setState({sentimentOutput:response.data});
-      let output = response.data;
-      if(response.data === "positive") {
-        output = <div style={{color:"green",fontSize:20}}>{response.data}</div>
-      } else if (response.data === "negative"){
-        output = <div style={{color:"red",fontSize:20}}>{response.data}</div>
-      } else {
-        output = <div style={{color:"orange",fontSize:20}}>{response.data}</div>
+       
+        if(response.data.result && response.data.result.keywords){
+            
+               
+          this.setState({sentimentOutput:<SentimentInfo keywords={response.data.result.keywords}/>}); 
+        }       
+       
+           
+    }).catch(err => {      
+      if(err.response){
+        this.setState({sentimentOutput:<SentimentInfo keywords={err.response}/>});
+        console.log(err.response);
+      }else{
+        console.log(err);       
       }
-      this.setState({sentimentOutput:output});
-    });
+  });
   }
 
   sendForEmotionAnalysis = () => {
@@ -73,8 +77,20 @@ class App extends React.Component {
     ret = axios.get(url);
 
     ret.then((response)=>{
-      this.setState({sentimentOutput:<EmotionTable emotions={response.data}/>});
-  });
+        this.setState({sentimentOutput:<EmotionTable emotions={response.data}/>});   
+        console.log(response);   
+     
+    }).catch(err => {
+      if(err.response){
+        this.setState({sentimentOutput:<EmotionTable emotions={err.response}/>});
+        console.log(err);
+      }else{
+        console.log(err);        
+      }
+    
+    });
+
+ 
   }
   
 
