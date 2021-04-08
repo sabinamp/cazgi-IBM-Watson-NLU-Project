@@ -5,12 +5,15 @@ const app = new express();
 
 // middleware
 app.use(express.static('client'));
-app.use(express.json());
-app.use(express.urlencoded());
+/* app.use(express.json());
+app.use(express.urlencoded()); */
 
 const cors_app = require('cors');
 app.use(cors_app());
 
+const log4js = require('log4js');
+const logger = log4js.getLogger();
+logger.level= "debug";
 
 function getNLUInstance() {
     let api_key = process.env.API_KEY;
@@ -39,7 +42,7 @@ function getNLUInstance() {
           'keywords': {
             'sentiment': getsentiment,
             'emotion': getemotion,
-            'limit': 5
+            'limit': 15
           }
         },
         'text': targetText,      
@@ -47,14 +50,9 @@ function getNLUInstance() {
       };
 
      NLU.analyze(analyzeParams1)
-    .then(analysisResults => {
-        if(getsentiment){
-            console.log(JSON.stringify(analysisResults, null, 5));
-            return res.send(JSON.stringify(analysisResults, null, 5));
-        }else if(getemotion){
-            console.log(JSON.stringify(analysisResults, null, 5));
-            return res.send(JSON.stringify(analysisResults, null, 5));
-        }
+    .then(analysisResults => {        
+         logger.debug(JSON.stringify(analysisResults, null, 15));
+         return res.send(JSON.stringify(analysisResults, null, 15));       
      
     })
     .catch(err => {
@@ -81,13 +79,10 @@ function getNLUInstance() {
 
    NLU.analyze(analyzeParams2)
   .then(analysisResults => {
-      if(getsentiment){
-          //console.log(JSON.stringify(analysisResults, null, 5));
-          return res.send(JSON.stringify(analysisResults, null, 5));
-      }else if(getemotion){
-         // console.log(JSON.stringify(analysisResults, null, 5));
-          return res.send(JSON.stringify(analysisResults, null, 5));
-      }
+      
+        logger.debug(JSON.stringify(analysisResults, null, 15));
+          return res.send(JSON.stringify(analysisResults, null, 15));
+    
    
   })
   .catch(err => {
